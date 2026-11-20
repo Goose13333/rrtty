@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>База 9 класса — Умный справочник</title>
+<style>
+  :root {
+    --bg: #0f111a;
+    --card: #1a1d2d;
+    --accent: #6c5ce7;
+    --accent-hover: #8174f0;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --border: #2d334d;
+    --success: #10b981;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+  body { background: var(--bg); color: var(--text); padding: 16px; max-width: 800px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 20px; }
+  h1 { font-size: 1.5rem; margin-bottom: 6px; }
+  .subtitle { color: var(--muted); font-size: 0.9rem; }
+  
+  .search-box { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid var(--border); background: var(--card); color: #fff; font-size: 1rem; margin-bottom: 12px; outline: none; }
+  .search-box:focus { border-color: var(--accent); }
+
+  .filters { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 16px; }
+  .filter-btn { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 20px; cursor: pointer; white-space: nowrap; font-size: 0.9rem; }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); font-weight: 600; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 16px; }
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .badge { font-size: 0.75rem; padding: 4px 8px; border-radius: 6px; background: #282d46; color: #a29bfe; font-weight: 600; }
+  .fav-btn { background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--muted); }
+  .fav-btn.saved { color: #facc15; }
+  
+  .card h2 { font-size: 1.2rem; margin: 6px 0; }
+  .simple-text { color: #cbd5e1; line-height: 1.5; font-size: 0.95rem; margin-bottom: 12px; }
+  
+  .formula-box { background: #121420; padding: 12px; border-radius: 8px; border-left: 3px solid var(--accent); font-family: monospace; font-size: 1.05rem; margin-bottom: 12px; }
+  
+  .calc-box { background: #151826; padding: 12px; border-radius: 10px; border: 1px dashed var(--border); margin-top: 10px; }
+  .calc-title { font-size: 0.85rem; color: var(--muted); margin-bottom: 8px; font-weight: 600; }
+  .calc-inputs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+  .calc-inputs input { flex: 1; min-width: 90px; padding: 8px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); color: #fff; }
+  .calc-btn { background: var(--accent); color: #fff; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+  .calc-result { margin-top: 8px; font-weight: 600; color: var(--success); font-size: 0.95rem; }
+
+  .video-link { display: inline-block; margin-top: 12px; color: #74b9ff; text-decoration: none; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⚡ База 9 класса</h1>
+  <div class="subtitle">Быстрые шпаргалки, калькуляторы и разборы к контрольным</div>
+</header>
+
+<input type="text" id="searchInput" class="search-box" placeholder="Введи тему (например: ускорение, дискриминант, ОВР)...">
+
+<div class="filters" id="filterContainer">
+  <button class="filter-btn active" data-subj="all">Все</button>
+  <button class="filter-btn" data-subj="Физика">Физика</button>
+  <button class="filter-btn" data-subj="Математика">Математика</button>
+  <button class="filter-btn" data-subj="Химия">Химия</button>
+  <button class="filter-btn" data-subj="Русский">Русский</button>
+  <button class="filter-btn" data-subj="fav">⭐ К контрольной</button>
+</div>
+
+<div id="cardsContainer"></div>
+
+<script>
+// БАЗА ЗНАНИЙ (Сюда легко добавлять новые темы)
+const TOPICS = [
+  {
+    id: "phys_acc",
+    subject: "Физика",
+    title: "Ускорение и равноускоренное движение",
+    tags: "кинематика скорость время путь торможение",
+    simple: "Ускорение показывает, насколько быстро меняется скорость за 1 секунду. Если машина разгоняется — ускорение с плюсом, если тормозит — с минусом.",
+    formulas: "a = (v - v₀) / t  |  S = v₀t + (at²) / 2",
+    calcType: "acceleration",
+    calcTitle: "Калькулятор ускорения (a):",
+    inputs: [
+      { id: "v0", placeholder: "Нач. скорость v₀ (м/с)" },
+      { id: "v", placeholder: "Кон. скорость v (м/с)" },
+      { id: "t", placeholder: "Время t (с)" }
+    ],
+    videoUrl: "https://rutube.ru"
+  },
+  {
+    id: "math_quad",
+    subject: "Математика",
+    title: "Квадратные уравнения и Дискриминант",
+    tags: "алгебра корни икс парабола виета",
+    simple: "Уравнение вида ax² + bx + c = 0. Сначала считаем дискриминант D. Если D > 0 — два корня, D = 0 — один корень, D < 0 — корней нет.",
+    formulas: "D = b² - 4ac  |  x₁,₂ = (-b ± √D) / 2a",
+    calcType: "quadratic",
+    calcTitle: "Решить уравнение ax² + bx + c = 0:",
+    inputs: [
+      { id: "a", placeholder: "a (перед x²)" },
+      { id: "b", placeholder: "b (перед x)" },
+      { id: "c", placeholder: "c (число)" }
+    ],
+    videoUrl: "https://rutube.ru"
+  },
+  {
+    id: "chem_mol",
+    subject: "Химия",
+    title: "Количество вещества (Моль) и Молярная масса",
+    tags: "масса объем газы авогадро задача",
+    simple: "Моль — это «упаковка» частиц в химии. Чтобы найти количество вещества n, нужно массу из задачи поделить на молярную массу M из таблицы Менделеева.",
+    formulas: "n = m / M  |  n = V / 22.4 (для газов при н.у.)",
+    calcType: "moles",
+    calcTitle: "Найти количество вещества (n):",
+    inputs: [
+      { id: "m", placeholder: "Масса m (г)" },
+      { id: "M", placeholder: "Молярная масса M (г/моль)" }
+    ],
+    videoUrl: "https://rutube.ru"
+  },
+  {
+    id: "rus_spp",
+    subject: "Русский",
+    title: "Сложноподчинённое предложение (СПП)",
+    tags: "запятые союз придаточное главное огэ",
+    simple: "В СПП есть главная часть и зависимая (к ней можно задать вопрос от главной). Запятая ставится ВСЕГДА между ними, даже если придаточное стоит в середине.",
+    formulas: "[Главное], (союз чтобы / потому что / который...).",
+    calcType: null,
+    videoUrl: "https://rutube.ru"
+  }
+];
+
+let currentFilter = "all";
+let favorites = JSON.parse(localStorage.getItem("study_favs") || "[]");
+
+function calculate(type, id) {
+  const resEl = document.getElementById(`res_${id}`);
+  if (type === "acceleration") {
+    const v0 = parseFloat(document.getElementById(`${id}_v0`).value);
+    const v = parseFloat(document.getElementById(`${id}_v`).value);
+    const t = parseFloat(document.getElementById(`${id}_t`).value);
+    if (isNaN(v0) || isNaN(v) || !t) return resEl.textContent = "Введи все числа (время ≠ 0)";
+    const a = ((v - v0) / t).toFixed(2);
+    resEl.textContent = `Ответ: a = ${a} м/с²`;
+  }
+  if (type === "quadratic") {
+    const a = parseFloat(document.getElementById(`${id}_a`).value);
+    const b = parseFloat(document.getElementById(`${id}_b`).value);
+    const c = parseFloat(document.getElementById(`${id}_c`).value);
+    if (!a || isNaN(b) || isNaN(c)) return resEl.textContent = "Введи a (≠ 0), b и c";
+    const D = b * b - 4 * a * c;
+    if (D < 0) resEl.textContent = `D = ${D}. Корней нет.`;
+    else if (D === 0) resEl.textContent = `D = 0. Один корень: x = ${(-b / (2 * a)).toFixed(2)}`;
+    else {
+      const x1 = ((-b + Math.sqrt(D)) / (2 * a)).toFixed(2);
+      const x2 = ((-b - Math.sqrt(D)) / (2 * a)).toFixed(2);
+      resEl.textContent = `D = ${D}. Корни: x₁ = ${x1}, x₂ = ${x2}`;
+    }
+  }
+  if (type === "moles") {
+    const m = parseFloat(document.getElementById(`${id}_m`).value);
+    const M = parseFloat(document.getElementById(`${id}_M`).value);
+    if (isNaN(m) || !M) return resEl.textContent = "Введи массу и молярную массу (≠ 0)";
+    resEl.textContent = `Ответ: n = ${(m / M).toFixed(3)} моль`;
+  }
+}
+
+function toggleFav(id) {
+  if (favorites.includes(id)) favorites = favorites.filter(item => item !== id);
+  else favorites.push(id);
+  localStorage.setItem("study_favs", JSON.stringify(favorites));
+  render();
+}
+
+function render() {
+  const query = document.getElementById("searchInput").value.toLowerCase().trim();
+  const container = document.getElementById("cardsContainer");
+  container.innerHTML = "";
+
+  const filtered = TOPICS.filter(t => {
+    const matchesSubj = currentFilter === "all" || (currentFilter === "fav" ? favorites.includes(t.id) : t.subject === currentFilter);
+    const matchesText = !query || t.title.toLowerCase().includes(query) || t.tags.includes(query) || t.simple.toLowerCase().includes(query);
+    return matchesSubj && matchesText;
+  });
+
+  if (!filtered.length) {
+    container.innerHTML = `<div style="text-align:center; color:var(--muted); padding:30px;">Ничего не найдено. Попробуй другое слово.</div>`;
+    return;
+  }
+
+  filtered.forEach(t => {
+    const isFav = favorites.includes(t.id);
+    let calcHTML = "";
+    if (t.calcType) {
+      const inputsHTML = t.inputs.map(inp => `<input type="number" id="${t.id}_${inp.id}" placeholder="${inp.placeholder}">`).join("");
+      calcHTML = `
+        <div class="calc-box">
+          <div class="calc-title">${t.calcTitle}</div>
+          <div class="calc-inputs">${inputsHTML}</div>
+          <button class="calc-btn" onclick="calculate('${t.calcType}', '${t.id}')">Посчитать</button>
+          <div class="calc-result" id="res_${t.id}"></div>
+        </div>`;
+    }
+
+    container.innerHTML += `
+      <div class="card">
+        <div class="card-header">
+          <span class="badge">${t.subject}</span>
+          <button class="fav-btn ${isFav ? 'saved' : ''}" onclick="toggleFav('${t.id}')">${isFav ? '★' : '☆'}</button>
+        </div>
+        <h2>${t.title}</h2>
