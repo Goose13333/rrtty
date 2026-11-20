@@ -210,3 +210,25 @@ function render() {
           <button class="fav-btn ${isFav ? 'saved' : ''}" onclick="toggleFav('${t.id}')">${isFav ? '★' : '☆'}</button>
         </div>
         <h2>${t.title}</h2>
+        <div class="simple-text">${t.simple}</div>
+        <div class="formula-box">${t.formulas}</div>
+        ${calcHTML}
+        <a class="video-link" href="${t.videoUrl}" target="_blank">▶ Смотреть видеоразбор темы</a>
+      </div>`;
+  });
+}
+
+document.getElementById("searchInput").addEventListener("input", render);
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentFilter = btn.dataset.subj;
+    render();
+  });
+});
+
+render();
+</script>
+</body>
+</html>
