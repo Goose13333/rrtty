@@ -72,10 +72,11 @@
 <script>
 // БАЗА ЗНАНИЙ (Сюда легко добавлять новые темы)
 const TOPICS = [
-  {
+   {
     id: "phys_acc",
     subject: "Физика",
-    title: "Ускорение и равноускоренное движение",
+    title: "1 четв. | Ускорение и равноускоренное движение",
+
     tags: "кинематика скорость время путь торможение",
     simple: "Ускорение показывает, насколько быстро меняется скорость за 1 секунду. Если машина разгоняется — ускорение с плюсом, если тормозит — с минусом.",
     formulas: "a = (v - v₀) / t  |  S = v₀t + (at²) / 2",
@@ -88,6 +89,65 @@ const TOPICS = [
     ],
     videoUrl: "https://rutube.ru"
   },
+    {
+    id: "phys_fall",
+    subject: "Физика",
+    title: "1 четв. | Свободное падение тел",
+    tags: "падение высота g ускорение свободного падения бросок",
+    simple: "При падении без сопротивления воздуха тело летит вниз с постоянным ускорением g ≈ 9.8 м/с² (в задачах берут g = 10 м/с²). При броске вверх тело тормозит с тем же g.",
+    formulas: "h = (g · t²) / 2  |  v = g · t  |  t = √(2h / g)",
+    calcType: "freefall",
+    calcTitle: "Найти высоту падения (h) при g = 10 м/с²:",
+    inputs: [{ id: "t", placeholder: "Время падения t (с)" }],
+    videoUrl: "https://rutube.ru"
+  },
+  {
+    id: "phys_circle",
+    subject: "Физика",
+    title: "1 четв. | Движение по окружности",
+    tags: "окружность период частота радиус центростремительное ускорение",
+    simple: "При движении по кругу всегда есть центростремительное ускорение (направлено к центру, меняет направление скорости). Период T — время одного круга, частота ν — кругов за 1 секунду.",
+    formulas: "aц = v² / R  |  v = 2πR / T  |  T = 1 / ν",
+    calcType: "circle",
+    calcTitle: "Центростремительное ускорение (aц):",
+    inputs: [{ id: "v", placeholder: "Скорость v (м/с)" }, { id: "R", placeholder: "Радиус R (м)" }],
+    videoUrl: "https://rutube.ru"
+  },
+  {
+    id: "phys_newton_all",
+    subject: "Физика",
+    title: "2 четв. | Три закона Ньютона",
+    tags: "динамика ньютон сила масса инерция противодействие",
+    simple: "1-й: если силы равны, тело стоит или едет прямо (инерция). 2-й: сила разгоняет массу (F = ma). 3-й: силы взаимодействия равны и противоположны (F₁ = -F₂).",
+    formulas: "F = m · a  |  a = F / m  |  F₁ = -F₂",
+    calcType: "newton2",
+    calcTitle: "Калькулятор 2-го закона Ньютона (найти силу F):",
+    inputs: [{ id: "m", placeholder: "Масса m (кг)" }, { id: "a", placeholder: "Ускорение a (м/с²)" }],
+    videoUrl: "https://rutube.ru"
+  },
+  {
+    id: "phys_gravity",
+    subject: "Физика",
+    title: "2 четв. | Закон всемирного тяготения",
+    tags: "тяготение гравитация планеты земля притяжение",
+    simple: "Все тела притягиваются друг к другу. Чем больше массы — тем сильнее притяжение, чем больше расстояние R в квадрате — тем слабее.",
+    formulas: "F = G · (m₁ · m₂) / R²  |  G = 6.67 · 10⁻¹¹ Н·м²/кг²",
+    calcType: null,
+    videoUrl: "https://rutube.ru"
+  },
+  {
+    id: "phys_impulse",
+    subject: "Физика",
+    title: "2 четв. | Импульс тела и закон его сохранения",
+    tags: "импульс удар столкновение снаряд реактивное движение",
+    simple: "Импульс — это «количество движения» (масса × скорость). При столкновении или выстреле сумма импульсов «ДО» равна сумме импульсов «ПОСЛЕ».",
+    formulas: "p = m · v  |  m₁v₁ + m₂v₂ = m₁v₁' + m₂v₂'",
+    calcType: "impulse",
+    calcTitle: "Найти импульс тела (p):",
+    inputs: [{ id: "m", placeholder: "Масса m (кг)" }, { id: "v", placeholder: "Скорость v (м/с)" }],
+    videoUrl: "https://rutube.ru"
+  },
+
   {
     id: "math_quad",
     subject: "Математика",
@@ -165,6 +225,30 @@ function calculate(type, id) {
     resEl.textContent = `Ответ: n = ${(m / M).toFixed(3)} моль`;
   }
 }
+    if (type === "freefall") {
+    const t = parseFloat(document.getElementById(`${id}_t`).value);
+    if (isNaN(t) || t < 0) return resEl.textContent = "Введи время t ≥ 0";
+    resEl.textContent = `Высота h = ${(0.5 * 10 * t * t).toFixed(2)} м (скорость v = ${(10 * t).toFixed(2)} м/с)`;
+  }
+  if (type === "circle") {
+    const v = parseFloat(document.getElementById(`${id}_v`).value);
+    const R = parseFloat(document.getElementById(`${id}_R`).value);
+    if (isNaN(v) || !R || R <= 0) return resEl.textContent = "Введи скорость и радиус (> 0)";
+    resEl.textContent = `Ответ: aц = ${((v * v) / R).toFixed(2)} м/с²`;
+  }
+  if (type === "newton2") {
+    const m = parseFloat(document.getElementById(`${id}_m`).value);
+    const a = parseFloat(document.getElementById(`${id}_a`).value);
+    if (isNaN(m) || isNaN(a)) return resEl.textContent = "Введи массу и ускорение";
+    resEl.textContent = `Ответ: Сила F = ${(m * a).toFixed(2)} Н`;
+  }
+  if (type === "impulse") {
+    const m = parseFloat(document.getElementById(`${id}_m`).value);
+    const v = parseFloat(document.getElementById(`${id}_v`).value);
+    if (isNaN(m) || isNaN(v)) return resEl.textContent = "Введи массу и скорость";
+    resEl.textContent = `Ответ: Импульс p = ${(m * v).toFixed(2)} кг·м/с`;
+  }
+
 
 function toggleFav(id) {
   if (favorites.includes(id)) favorites = favorites.filter(item => item !== id);
