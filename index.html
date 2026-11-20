@@ -224,7 +224,6 @@ function calculate(type, id) {
     if (isNaN(m) || !M) return resEl.textContent = "Введи массу и молярную массу (≠ 0)";
     resEl.textContent = `Ответ: n = ${(m / M).toFixed(3)} моль`;
   }
-}
     if (type === "freefall") {
     const t = parseFloat(document.getElementById(`${id}_t`).value);
     if (isNaN(t) || t < 0) return resEl.textContent = "Введи время t ≥ 0";
@@ -249,7 +248,7 @@ function calculate(type, id) {
     resEl.textContent = `Ответ: Импульс p = ${(m * v).toFixed(2)} кг·м/с`;
   }
 
-
+}
 function toggleFav(id) {
   if (favorites.includes(id)) favorites = favorites.filter(item => item !== id);
   else favorites.push(id);
