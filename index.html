@@ -154,6 +154,103 @@ const TOPICS = [
         videoUrl: "https://rutube.ru"
 
   },
+  {
+    id: "phys_pendulum",
+    subject: "Физика",
+    title: "3 четв. | Механические колебания и маятники",
+    tags: "колебания маятник период частота амплитуда пружина нить",
+    simple: "Колебания — это движения, которые точно повторяются через равное время. Период T — время одного полного качания туда-обратно, частота ν — сколько качаний за 1 секунду.",
+    formulas: "T = t / N  |  ν = N / t = 1 / T  |  T_нит = 2π√(l/g)  |  T_пруж = 2π√(m/k)",
+    calcType: "pendulum",
+    calcTitle: "Период математического (нитяного) маятника (g = 10 м/с²):",
+    inputs: [{ id: "l", placeholder: "Длина нити l (м)" }],
+    videoQuery: "физика 9 класс механические колебания маятник период частота"
+  },
+  {
+    id: "phys_waves",
+    subject: "Физика",
+    title: "3 четв. | Механические волны. Длина волны",
+    tags: "волна длина волны скорость волны поперечные продольные",
+    simple: "Волна переносит энергию без переноса вещества. Длина волны λ (лямбда) — расстояние между двумя соседними гребнями, которое волна проходит за один период T.",
+    formulas: "λ = v · T  |  λ = v / ν  |  v = λ · ν",
+    calcType: "wave",
+    calcTitle: "Найти длину волны λ (в метрах):",
+    inputs: [
+      { id: "v", placeholder: "Скорость волны v (м/с)" },
+      { id: "nu", placeholder: "Частота ν (Гц)" }
+    ],
+    videoQuery: "физика 9 класс механические волны длина волны"
+  },
+  {
+    id: "phys_sound",
+    subject: "Физика",
+    title: "3 четв. | Звуковые волны и эхо",
+    tags: "звук эхо громкость высота тембр ультразвук скорость звука",
+    simple: "Звук — это механическая волна с частотой от 16 Гц до 20 000 Гц (в воздухе v ≈ 340 м/с). Громкость зависит от амплитуды, высота тона — от частоты. При расчёте эха звук идёт туда и обратно (2S).",
+    formulas: "S = (v · t) / 2  (для эха)  |  v_возд ≈ 340 м/с",
+    calcType: "echo",
+    calcTitle: "Расстояние до преграды по эху (v = 340 м/с):",
+    inputs: [{ id: "t", placeholder: "Время возврата эха t (с)" }],
+    videoQuery: "физика 9 класс звуковые волны эхо"
+  },
+  {
+    id: "phys_ampere",
+    subject: "Физика",
+    title: "3 четв. | Магнитное поле и сила Ампера",
+    tags: "магнитное поле индукция сила ампера правило левой руки проводник",
+    simple: "Магнитное поле действует на проводник с током с силой Ампера. Направление определяют по правилу левой руки: линии поля в ладонь, 4 пальца по току — большой палец покажет силу.",
+    formulas: "F_A = B · I · l · sinα  (при α = 90°: F_A = B · I · l)",
+    calcType: "ampere",
+    calcTitle: "Сила Ампера (проводник перпендикулярен полю, α = 90°):",
+    inputs: [
+      { id: "B", placeholder: "Магнитная индукция B (Тл)" },
+      { id: "I", placeholder: "Сила тока I (А)" },
+      { id: "l", placeholder: "Длина проводника l (м)" }
+    ],
+    videoQuery: "физика 9 класс магнитное поле сила ампера правило левой руки"
+  },
+  {
+    id: "phys_induction",
+    subject: "Физика",
+    title: "4 четв. | Электромагнитная индукция и правило Ленца",
+    tags: "индукция магнитный поток фарадей ленц ток катушка",
+    simple: "Если менять магнитное поле внутри замкнутой катушки (двигать магнит), в ней возникает индукционный ток. По правилу Ленца этот ток всегда мешает тому изменению, которое его вызвало.",
+    formulas: "Φ = B · S · cosα  |  I_i возникает при ΔΦ ≠ 0",
+    calcType: "flux",
+    calcTitle: "Магнитный поток Φ (контур перпендикулярен полю, cosα = 1):",
+    inputs: [
+      { id: "B", placeholder: "Индукция B (Тл)" },
+      { id: "S", placeholder: "Площадь контура S (м²)" }
+    ],
+    videoQuery: "физика 9 класс электромагнитная индукция правило ленца"
+  },
+  {
+    id: "phys_em_waves",
+    subject: "Физика",
+    title: "4 четв. | Электромагнитные волны и свет",
+    tags: "электромагнитные волны скорость света радиоволны частота",
+    simple: "Электромагнитные волны распространяются даже в вакууме со скоростью света c = 300 000 км/с (3·10⁸ м/с). К ним относятся радиоволны, свет, рентген и гамма-излучение.",
+    formulas: "c = λ · ν  |  λ = c / ν  |  c = 3 · 10⁸ м/с",
+    calcType: "emwave",
+    calcTitle: "Длина электромагнитной волны λ (в метрах):",
+    inputs: [{ id: "nu", placeholder: "Частота в МГц (например, 100)" }],
+    videoQuery: "физика 9 класс электромагнитные волны"
+  },
+  {
+    id: "phys_atom",
+    subject: "Физика",
+    title: "4 четв. | Строение атома, изотопы и ядерные реакции",
+    tags: "атом ядро протон нейтрон изотоп альфа бета распад",
+    simple: "В центре атома ядро из протонов (число Z = номер элемента в таблице Менделеева) и нейтронов (N = A - Z, где A — массовое число). Вокруг летают электроны (число = Z). Изотопы — атомы с одинаковым Z, но разным числом нейтронов.",
+    formulas: "N = A - Z  |  α-распад: ⁴₂He  |  β-распад: ⁰₋₁e",
+    calcType: "atom",
+    calcTitle: "Состав атома по таблице Менделеева:",
+    inputs: [
+      { id: "Z", placeholder: "Порядковый номер Z" },
+      { id: "A", placeholder: "Массовое число A (округлённое)" }
+    ],
+    videoQuery: "физика 9 класс строение атома ядерные реакции"
+  },
 
   {
     id: "math_quad",
@@ -256,6 +353,48 @@ function calculate(type, id) {
     const v = parseFloat(document.getElementById(`${id}_v`).value);
     if (isNaN(m) || isNaN(v)) return resEl.textContent = "Введи массу и скорость";
     resEl.textContent = `Ответ: Импульс p = ${(m * v).toFixed(2)} кг·м/с`;
+  }
+  if (type === "pendulum") {
+    const l = parseFloat(document.getElementById(`${id}_l`).value);
+    if (!l || l <= 0) return resEl.textContent = "Введи длину нити l > 0";
+    const T = 2 * Math.PI * Math.sqrt(l / 10);
+    resEl.textContent = `Период T = ${T.toFixed(2)} с (частота ν = ${(1 / T).toFixed(2)} Гц)`;
+  }
+  if (type === "wave") {
+    const v = parseFloat(document.getElementById(`${id}_v`).value);
+    const nu = parseFloat(document.getElementById(`${id}_nu`).value);
+    if (isNaN(v) || !nu || nu <= 0) return resEl.textContent = "Введи скорость и частоту (> 0)";
+    resEl.textContent = `Длина волны λ = ${(v / nu).toFixed(3)} м`;
+  }
+  if (type === "echo") {
+    const t = parseFloat(document.getElementById(`${id}_t`).value);
+    if (isNaN(t) || t < 0) return resEl.textContent = "Введи время t ≥ 0";
+    resEl.textContent = `Расстояние до преграды S = ${((340 * t) / 2).toFixed(1)} м`;
+  }
+  if (type === "ampere") {
+    const B = parseFloat(document.getElementById(`${id}_B`).value);
+    const I = parseFloat(document.getElementById(`${id}_I`).value);
+    const l = parseFloat(document.getElementById(`${id}_l`).value);
+    if (isNaN(B) || isNaN(I) || isNaN(l)) return resEl.textContent = "Введи B, I и l";
+    resEl.textContent = `Сила Ампера F_A = ${(B * I * l).toFixed(3)} Н`;
+  }
+  if (type === "flux") {
+    const B = parseFloat(document.getElementById(`${id}_B`).value);
+    const S = parseFloat(document.getElementById(`${id}_S`).value);
+    if (isNaN(B) || isNaN(S)) return resEl.textContent = "Введи индукцию B и площадь S";
+    resEl.textContent = `Магнитный поток Φ = ${(B * S).toFixed(4)} Вб`;
+  }
+  if (type === "emwave") {
+    const nuMhz = parseFloat(document.getElementById(`${id}_nu`).value);
+    if (!nuMhz || nuMhz <= 0) return resEl.textContent = "Введи частоту в МГц (> 0)";
+    const lambda = 300 / nuMhz;
+    resEl.textContent = `Длина волны λ = ${lambda.toFixed(2)} м`;
+  }
+  if (type === "atom") {
+    const Z = parseInt(document.getElementById(`${id}_Z`).value);
+    const A = parseInt(document.getElementById(`${id}_A`).value);
+    if (!Z || !A || A < Z) return resEl.textContent = "Введи корректные Z и A (A ≥ Z)";
+    resEl.textContent = `Протонов: ${Z}, Электронов: ${Z}, Нейтронов: ${A - Z}`;
   }
 
 }
