@@ -28,13 +28,31 @@
   .filter-btn { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 20px; cursor: pointer; white-space: nowrap; font-size: 0.9rem; }
   .filter-btn.active { background: var(--accent); border-color: var(--accent); font-weight: 600; }
 
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 16px; }
-  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-  .badge { font-size: 0.75rem; padding: 4px 8px; border-radius: 6px; background: #282d46; color: #a29bfe; font-weight: 600; }
-  .fav-btn { background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--muted); }
-  .fav-btn.saved { color: #facc15; }
+   h1 { font-size: 1.65rem; margin-bottom: 6px; background: linear-gradient(90deg, #a29bfe, #74b9ff, #55efc4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .card { background: linear-gradient(145deg, #1b1f32, #161928); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 16px; padding: 18px; margin-bottom: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.28); transition: transform 0.15s ease, border-color 0.2s ease; }
+  .card:hover { transform: translateY(-2px); border-color: #4c5680; }
+  .card[data-subj="Физика"] { border-left-color: #6c5ce7; }
+  .card[data-subj="Математика"] { border-left-color: #00cec9; }
+  .card[data-subj="Химия"] { border-left-color: #10b981; }
+  .card[data-subj="Русский"] { border-left-color: #fdcb6e; }
+
+  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .badge { font-size: 0.75rem; padding: 4px 10px; border-radius: 8px; background: rgba(162, 155, 254, 0.15); color: #a29bfe; font-weight: 700; letter-spacing: 0.3px; }
+  .card[data-subj="Математика"] .badge { background: rgba(0, 206, 201, 0.15); color: #55efc4; }
+  .card[data-subj="Химия"] .badge { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+  .card[data-subj="Русский"] .badge { background: rgba(253, 203, 110, 0.15); color: #ffeaa7; }
+
+  .fav-btn { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--muted); transition: transform 0.15s; }
+  .fav-btn:hover { transform: scale(1.15); }
+  .fav-btn.saved { color: #facc15; text-shadow: 0 0 10px rgba(250, 204, 21, 0.4); }
   
-  .card h2 { font-size: 1.2rem; margin: 6px 0; }
+  .card h2 { font-size: 1.2rem; margin: 6px 0 8px; color: #f8fafc; }
+
+  .cheat-grid { display: grid; grid-template-columns: 1fr; gap: 10px; width: 100%; }
+  .cheat-block { background: #121420; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); }
+  .cheat-title { font-size: 0.85rem; font-weight: 700; color: #55efc4; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .cheat-formulas { font-size: 0.98rem; line-height: 1.8; color: #e2e8f0; }
+
   .simple-text { color: #cbd5e1; line-height: 1.5; font-size: 0.95rem; margin-bottom: 12px; }
   
     .formula-box { background: #121420; padding: 12px; border-radius: 10px; border-left: 3px solid var(--accent); font-size: 1.1rem; margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; overflow-x: auto; }
@@ -98,7 +116,78 @@
     <div class="si-res" id="siResult">В СИ: —</div>
   </div>
 </details>
- 
+ <details class="si-details" id="mathCheatSheet" ontoggle="if(this.open && window.renderMathInElement) renderMathInElement(this, {delimiters:[{left:'$$',right:'$$',display:false}]})">
+  <summary class="si-summary" style="color: #55efc4;">
+    <span>📚 Все формулы ОГЭ по Математике (шпаргалка)</span>
+    <span style="font-size: 0.8rem; color: var(--muted);">нажми ▼</span>
+  </summary>
+  <div class="si-body">
+    <div class="cheat-grid">
+      <div class="cheat-block">
+        <div class="cheat-title">1. Формулы сокращённого умножения (ФСУ)</div>
+        <div class="cheat-formulas">
+          $$(a + b)^2 = a^2 + 2ab + b^2$$ &nbsp;|&nbsp; $$(a - b)^2 = a^2 - 2ab + b^2$$<br>
+          $$a^2 - b^2 = (a - b)(a + b)$$ &nbsp;|&nbsp; $$a^3 - b^3 = (a - b)(a^2 + ab + b^2)$$<br>
+          $$a^3 + b^3 = (a + b)(a^2 - ab + b^2)$$
+        </div>
+      </div>
+
+      <div class="cheat-block">
+        <div class="cheat-title">2. Степени и Корни (Задания №6, №8)</div>
+        <div class="cheat-formulas">
+          $$a^n \cdot a^m = a^{n+m}$$ &nbsp;|&nbsp; $$\frac{a^n}{a^m} = a^{n-m}$$ &nbsp;|&nbsp; $$(a^n)^m = a^{n \cdot m}$$<br>
+          $$a^{-n} = \frac{1}{a^n}$$ &nbsp;|&nbsp; $$a^0 = 1$$ &nbsp;|&nbsp; $$(ab)^n = a^n b^n$$ &nbsp;|&nbsp; $$\left(\frac{a}{b}\right)^n = \frac{a^n}{b^n}$$<br>
+          $$\sqrt{a \cdot b} = \sqrt{a} \cdot \sqrt{b}$$ &nbsp;|&nbsp; $$\sqrt{\frac{a}{b}} = \frac{\sqrt{a}}{\sqrt{b}}$$ &nbsp;|&nbsp; $$\sqrt{a^2} = |a|$$
+        </div>
+      </div>
+
+      <div class="cheat-block">
+        <div class="cheat-title">3. Квадратные уравнения, Парабола и Прогрессии (№9, №11, №14)</div>
+        <div class="cheat-formulas">
+          $$ax^2 + bx + c = 0 \implies D = b^2 - 4ac, \quad x_{1,2} = \frac{-b \pm \sqrt{D}}{2a}$$<br>
+          $$\text{Виет (при } a=1\text{): } x_1 + x_2 = -b, \quad x_1 \cdot x_2 = c$$<br>
+          $$\text{Разложение: } ax^2 + bx + c = a(x - x_1)(x - x_2)$$<br>
+          $$\text{Вершина параболы: } x_0 = -\frac{b}{2a}, \quad y_0 = y(x_0)$$<br>
+          $$\text{Арифм. прогр.: } a_n = a_1 + d(n-1), \quad S_n = \frac{a_1 + a_n}{2} \cdot n$$<br>
+          $$\text{Геом. прогр.: } b_n = b_1 \cdot q^{n-1}, \quad S_n = \frac{b_1(q^n - 1)}{q - 1}$$
+        </div>
+      </div>
+
+      <div class="cheat-block">
+        <div class="cheat-title">4. Треугольники и Тригонометрия (Задания №15, №18)</div>
+        <div class="cheat-formulas">
+          $$\text{Пифагор: } c^2 = a^2 + b^2$$ &nbsp;|&nbsp; $$\text{Тройки: } (3,4,5),\ (5,12,13),\ (8,15,17)$$<br>
+          $$\sin\alpha = \frac{\text{противолеж.}}{c}, \quad \cos\alpha = \frac{\text{прилеж.}}{c}, \quad \text{tg}\alpha = \frac{\sin\alpha}{\cos\alpha} = \frac{a}{b}$$<br>
+          $$\sin^2\alpha + \cos^2\alpha = 1$$ &nbsp;|&nbsp; $$\sin(180^\circ - \alpha) = \sin\alpha$$ &nbsp;|&nbsp; $$\cos(180^\circ - \alpha) = -\cos\alpha$$<br>
+          $$\text{Теорема синусов: } \frac{a}{\sin A} = \frac{b}{\sin B} = \frac{c}{\sin C} = 2R$$<br>
+          $$\text{Теорема косинусов: } c^2 = a^2 + b^2 - 2ab\cos C$$<br>
+          $$\text{Средняя линия } \triangle: m = \frac{a}{2}$$ &nbsp;|&nbsp; $$\text{Медианы делятся } 2:1 \text{ от вершины}$$
+        </div>
+      </div>
+
+      <div class="cheat-block">
+        <div class="cheat-title">5. Площади всех фигур (Задание №17)</div>
+        <div class="cheat-formulas">
+          $$\text{Треугольник: } S = \frac{1}{2}ah = \frac{1}{2}ab\sin\gamma = \sqrt{p(p-a)(p-b)(p-c)}$$<br>
+          $$\text{Прямоуг. } \triangle: S = \frac{1}{2}ab$$ &nbsp;|&nbsp; $$\text{Равностор. } \triangle: S = \frac{a^2\sqrt{3}}{4}, \ h = \frac{a\sqrt{3}}{2}$$<br>
+          $$\text{Параллелограмм: } S = ah = ab\sin\alpha$$ &nbsp;|&nbsp; $$\text{Трапеция: } S = \frac{a+b}{2} \cdot h$$<br>
+          $$\text{Ромб: } S = \frac{1}{2}d_1 d_2 = ah$$ &nbsp;|&nbsp; $$\text{Прямоугольник: } S = ab$$ &nbsp;|&nbsp; $$\text{Квадрат: } S = a^2 = \frac{d^2}{2}$$
+        </div>
+      </div>
+
+      <div class="cheat-block">
+        <div class="cheat-title">6. Окружность и Круг (Задание №16)</div>
+        <div class="cheat-formulas">
+          $$\text{Длина окр.: } C = 2\pi R = \pi d$$ &nbsp;|&nbsp; $$\text{Площадь круга: } S = \pi R^2$$<br>
+          $$\angle_{\text{центр}} = \smile AB$$ &nbsp;|&nbsp; $$\angle_{\text{впис}} = \frac{1}{2}\smile AB$$ &nbsp;|&nbsp; $$\angle \text{ на диаметр} = 90^\circ$$<br>
+          $$\text{Вписанный 4-уг.: } \angle A + \angle C = 180^\circ$$ &nbsp;|&nbsp; $$\text{Описанный 4-уг.: } a + c = b + d$$<br>
+          $$\text{Хорды: } AE \cdot EB = CE \cdot ED$$ &nbsp;|&nbsp; $$\text{Касательная и секущая: } AB^2 = AC \cdot AD$$
+        </div>
+      </div>
+    </div>
+  </div>
+</details>
+
 
 <div class="filters" id="filterContainer">
   <button class="filter-btn active" data-subj="all">Все</button>
@@ -702,7 +791,7 @@ function render() {
     const rutubeLink = `https://rutube.ru/search/?query=${encodeURIComponent(searchQuery)}`;
 
     container.innerHTML += `
-      <div class="card">
+           <div class="card" data-subj="${t.subject}">
         <div class="card-header">
           <span class="badge">${t.subject}</span>
           <button class="fav-btn ${isFav ? 'saved' : ''}" onclick="toggleFav('${t.id}')">${isFav ? '★' : '☆'}</button>
