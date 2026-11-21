@@ -306,7 +306,7 @@ function render() {
         <div class="simple-text">${t.simple}</div>
         <div class="formula-box">${t.formulas}</div>
         ${calcHTML}
-           <a class="video-link" href="https://rutube.ru/search/?query=${encodeURIComponent(t.subject + ' 9 класс ' + t.title.replace(/^.*?\|\s*/, ''))}" target="_blank">▶ Смотреть видеоразбор темы</a>
+                     <a class="video-link" href="https://rutube.ru{encodeURIComponent(t.videoQuery || (t.subject + ' 9 класс ' + t.title.replace(/^.*?\|\s*/, '')))}" target="_blank" rel="noopener noreferrer">▶ Смотреть видеоразбор темы</a>
 
 
       </div>`;
