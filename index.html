@@ -311,6 +311,111 @@ const TOPICS = [
        videoUrl: "https://rutube.ru"
 
   },
+    {
+    id: "math_prog_arith",
+    subject: "Математика",
+    title: "ОГЭ №14 | Арифметическая прогрессия",
+    tags: "прогрессия разность d сумма членов последовательность",
+    simple: "Каждое следующее число больше (или меньше) предыдущего на одно и то же число d (разность). Чтобы найти n-й член, прибавляем d ровно (n - 1) раз.",
+    formulas: "$$a_n = a_1 + d(n - 1)$$ | $$S_n = \\frac{a_1 + a_n}{2} \\cdot n$$",
+    calcType: "arith_prog",
+    calcTitle: "Найти n-й член (aₙ) и сумму (Sₙ):",
+    inputs: [
+      { id: "a1", placeholder: "Первый член a₁" },
+      { id: "d", placeholder: "Разность d" },
+      { id: "n", placeholder: "Номер n" }
+    ],
+    videoQuery: "ОГЭ математика задание 14 арифметическая прогрессия"
+  },
+  {
+    id: "math_prog_geom",
+    subject: "Математика",
+    title: "ОГЭ №14 | Геометрическая прогрессия",
+    tags: "геометрическая прогрессия знаменатель q распад бактерии",
+    simple: "Каждое следующее число умножается на одно и то же число q (знаменатель). В ОГЭ часто встречается в задачах на деление клеток или радиоактивный распад.",
+    formulas: "$$b_n = b_1 \\cdot q^{n - 1}$$ | $$S_n = \\frac{b_1(q^n - 1)}{q - 1}$$",
+    calcType: "geom_prog",
+    calcTitle: "Найти n-й член (bₙ):",
+    inputs: [
+      { id: "b1", placeholder: "Первый член b₁" },
+      { id: "q", placeholder: "Знаменатель q" },
+      { id: "n", placeholder: "Номер n" }
+    ],
+    videoQuery: "ОГЭ математика задание 14 геометрическая прогрессия"
+  },
+  {
+    id: "math_parabola",
+    subject: "Математика",
+    title: "ОГЭ №11 | Графики функций: Парабола и Прямая",
+    tags: "график парабола вершина коэффициенты a b c прямая k",
+    simple: "В параболе y = ax² + bx + c: ветви вверх при a > 0, вниз при a < 0; число c — точка пересечения с осью Y. В прямой y = kx + b: при k > 0 график растёт слева направо, b — пересечение с осью Y.",
+    formulas: "$$x_{\\text{верш}} = -\\frac{b}{2a}$$ | $$y = ax^2 + bx + c$$ | $$y = kx + b$$",
+    calcType: "vertex",
+    calcTitle: "Найти координаты вершины параболы (x₀; y₀):",
+    inputs: [
+      { id: "a", placeholder: "Коэффициент a" },
+      { id: "b", placeholder: "Коэффициент b" },
+      { id: "c", placeholder: "Коэффициент c" }
+    ],
+    videoQuery: "ОГЭ математика задание 11 графики функций парабола прямая"
+  },
+  {
+    id: "math_prob",
+    subject: "Математика",
+    title: "ОГЭ №10 | Теория вероятностей",
+    tags: "вероятность событие орел решка кубик экзамен",
+    simple: "Вероятность P — это отношение числа «подходящих» (нужных нам) исходов m ко всем возможным исходам n. Ответ в ОГЭ всегда от 0 до 1 в виде десятичной дроби.",
+    formulas: "$$P(A) = \\frac{m}{n}$$ | $$P(\\text{не } A) = 1 - P(A)$$",
+    calcType: "prob",
+    calcTitle: "Калькулятор вероятности (m / n):",
+    inputs: [
+      { id: "m", placeholder: "Нужные исходы m" },
+      { id: "n", placeholder: "Все исходы n" }
+    ],
+    videoQuery: "ОГЭ математика задание 10 теория вероятностей"
+  },
+  {
+    id: "math_pythagoras",
+    subject: "Математика",
+    title: "ОГЭ №15 | Прямоугольный треугольник и Пифагор",
+    tags: "геометрия пифагор катет гипотенуза синус косинус тангенс",
+    simple: "В прямоугольном треугольнике квадрат гипотенузы равен сумме квадратов катетов. Синус — противолежащий катет на гипотенузу, косинус — прилежащий на гипотенузу.",
+    formulas: "$$c^2 = a^2 + b^2$$ | $$\\sin\\alpha = \\frac{a}{c}$$ | $$\\cos\\alpha = \\frac{b}{c}$$ | $$\\text{tg}\\alpha = \\frac{a}{b}$$",
+    calcType: "pythagoras",
+    calcTitle: "Найти гипотенузу (c) по двум катетам:",
+    inputs: [
+      { id: "a", placeholder: "Катет a" },
+      { id: "b", placeholder: "Катет b" }
+    ],
+    videoQuery: "ОГЭ математика задание 15 прямоугольный треугольник"
+  },
+  {
+    id: "math_areas",
+    subject: "Математика",
+    title: "ОГЭ №17 | Площади фигур (Треугольник, Трапеция, Ромб)",
+    tags: "площадь треугольник трапеция параллелограмм ромб клетчатая бумага",
+    simple: "Самые частые формулы из справочных материалов ОГЭ: площадь треугольника — половина основания на высоту; трапеции — полусумма оснований на высоту; ромба — половина произведения диагоналей.",
+    formulas: "$$S_{\\triangle} = \\frac{1}{2} a h$$ | $$S_{\\text{трап}} = \\frac{a + b}{2} \\cdot h$$ | $$S_{\\text{ромб}} = \\frac{1}{2} d_1 d_2$$",
+    calcType: "trapezoid",
+    calcTitle: "Площадь трапеции по основаниям и высоте:",
+    inputs: [
+      { id: "a", placeholder: "Верхнее основание a" },
+      { id: "b", placeholder: "Нижнее основание b" },
+      { id: "h", placeholder: "Высота h" }
+    ],
+    videoQuery: "ОГЭ математика задание 17 площади фигур"
+  },
+  {
+    id: "math_circle",
+    subject: "Математика",
+    title: "ОГЭ №16 | Окружность: Вписанные и центральные углы",
+    tags: "окружность угол вписанный центральный дуга касательная хорда",
+    simple: "Центральный угол (вершина в центре) равен дуге, на которую опирается. Вписанный угол (вершина на окружности) равен ПОЛОВИНЕ этой дуги. Угол, опирающийся на диаметр — всегда 90°.",
+    formulas: "$$\\angle_{\\text{центр}} = \\smile AB$$ | $$\\angle_{\\text{впис}} = \\frac{1}{2} \\smile AB$$ | $$C = 2\\pi R$$",
+    calcType: null,
+    videoQuery: "ОГЭ математика задание 16 окружность углы"
+  },
+
   {
     id: "chem_mol",
     subject: "Химия",
@@ -437,6 +542,51 @@ function calculate(type, id) {
     const A = parseInt(document.getElementById(`${id}_A`).value);
     if (!Z || !A || A < Z) return resEl.textContent = "Введи корректные Z и A (A ≥ Z)";
     resEl.textContent = `Протонов: ${Z}, Электронов: ${Z}, Нейтронов: ${A - Z}`;
+  }
+  if (type === "arith_prog") {
+    const a1 = parseFloat(document.getElementById(`${id}_a1`).value);
+    const d = parseFloat(document.getElementById(`${id}_d`).value);
+    const n = parseInt(document.getElementById(`${id}_n`).value);
+    if (isNaN(a1) || isNaN(d) || !n || n < 1) return resEl.textContent = "Введи a₁, d и номер n ≥ 1";
+    const an = a1 + d * (n - 1);
+    const sn = ((a1 + an) / 2) * n;
+    resEl.textContent = `a_${n} = ${an}, Сумма S_${n} = ${sn}`;
+  }
+  if (type === "geom_prog") {
+    const b1 = parseFloat(document.getElementById(`${id}_b1`).value);
+    const q = parseFloat(document.getElementById(`${id}_q`).value);
+    const n = parseInt(document.getElementById(`${id}_n`).value);
+    if (isNaN(b1) || isNaN(q) || !n || n < 1) return resEl.textContent = "Введи b₁, q и номер n ≥ 1";
+    const bn = b1 * Math.pow(q, n - 1);
+    resEl.textContent = `Ответ: b_${n} = ${Number(bn.toPrecision(6))}`;
+  }
+  if (type === "vertex") {
+    const a = parseFloat(document.getElementById(`${id}_a`).value);
+    const b = parseFloat(document.getElementById(`${id}_b`).value);
+    const c = parseFloat(document.getElementById(`${id}_c`).value);
+    if (!a || isNaN(b) || isNaN(c)) return resEl.textContent = "Введи a (≠ 0), b и c";
+    const x0 = -b / (2 * a);
+    const y0 = a * x0 * x0 + b * x0 + c;
+    resEl.textContent = `Вершина параболы: (${x0.toFixed(2)}; ${y0.toFixed(2)})`;
+  }
+  if (type === "prob") {
+    const m = parseFloat(document.getElementById(`${id}_m`).value);
+    const n = parseFloat(document.getElementById(`${id}_n`).value);
+    if (isNaN(m) || !n || n <= 0 || m < 0 || m > n) return resEl.textContent = "Введи 0 ≤ m ≤ n (n > 0)";
+    resEl.textContent = `Вероятность P = ${(m / n).toFixed(4)}`;
+  }
+  if (type === "pythagoras") {
+    const a = parseFloat(document.getElementById(`${id}_a`).value);
+    const b = parseFloat(document.getElementById(`${id}_b`).value);
+    if (!a || !b || a <= 0 || b <= 0) return resEl.textContent = "Введи оба катета > 0";
+    resEl.textContent = `Гипотенуза c = ${Math.sqrt(a * a + b * b).toFixed(3)}`;
+  }
+  if (type === "trapezoid") {
+    const a = parseFloat(document.getElementById(`${id}_a`).value);
+    const b = parseFloat(document.getElementById(`${id}_b`).value);
+    const h = parseFloat(document.getElementById(`${id}_h`).value);
+    if (!a || !b || !h || a <= 0 || b <= 0 || h <= 0) return resEl.textContent = "Введи основания и высоту > 0";
+    resEl.textContent = `Площадь S = ${(((a + b) / 2) * h).toFixed(2)}`;
   }
 
 }
