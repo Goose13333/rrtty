@@ -47,6 +47,13 @@
   .calc-result { margin-top: 8px; font-weight: 600; color: var(--success); font-size: 0.95rem; }
 
   .video-link { display: inline-block; margin-top: 12px; color: #74b9ff; text-decoration: none; font-size: 0.9rem; }
+    .si-details { background: var(--card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 14px; overflow: hidden; }
+  .si-summary { padding: 12px 14px; cursor: pointer; font-weight: 600; font-size: 0.95rem; color: #a29bfe; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  .si-summary::-webkit-details-marker { display: none; }
+  .si-body { padding: 12px 14px; border-top: 1px solid var(--border); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .si-body input, .si-body select { flex: 1; min-width: 110px; padding: 9px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: #fff; font-size: 0.95rem; }
+  .si-res { width: 100%; margin-top: 4px; font-weight: 600; color: var(--success); font-size: 0.95rem; }
+
 </style>
 </head>
 <body>
@@ -57,6 +64,31 @@
 </header>
 
 <input type="text" id="searchInput" class="search-box" placeholder="Введи тему (например: ускорение, дискриминант, ОВР)...">
+ <details class="si-details">
+  <summary class="si-summary">
+    <span>📐 Переводчик величин в СИ</span>
+    <span style="font-size: 0.8rem; color: var(--muted);">нажми ▼</span>
+  </summary>
+  <div class="si-body">
+    <input type="number" id="siVal" placeholder="Введи число..." oninput="convertSI()">
+    <select id="siUnit" onchange="convertSI()">
+      <option value="kmh">км/ч → м/с</option>
+      <option value="cm">см → м</option>
+      <option value="mm">мм → м</option>
+      <option value="km">км → м</option>
+      <option value="cm2">см² → м²</option>
+      <option value="g">г → кг</option>
+      <option value="t">т (тонны) → кг</option>
+      <option value="kn">кН → Н</option>
+      <option value="mhz">МГц → Гц</option>
+      <option value="khz">кГц → Гц</option>
+      <option value="min">мин → с</option>
+      <option value="hour">ч (часы) → с</option>
+    </select>
+    <div class="si-res" id="siResult">В СИ: —</div>
+  </div>
+</details>
+ 
 
 <div class="filters" id="filterContainer">
   <button class="filter-btn active" data-subj="all">Все</button>
@@ -467,6 +499,32 @@ document.querySelectorAll(".filter-btn").forEach(btn => {
 });
 
 render();
+ function convertSI() {
+  const val = parseFloat(document.getElementById("siVal").value);
+  const unit = document.getElementById("siUnit").value;
+  const out = document.getElementById("siResult");
+  if (isNaN(val)) return out.textContent = "В СИ: —";
+
+  const rules = {
+    kmh:  [val / 3.6, "м/с"],
+    cm:   [val / 100, "м"],
+    mm:   [val / 1000, "м"],
+    km:   [val * 1000, "м"],
+    cm2:  [val / 10000, "м²"],
+    g:    [val / 1000, "кг"],
+    t:    [val * 1000, "кг"],
+    kn:   [val * 1000, "Н"],
+    mhz:  [val * 1e6, "Гц"],
+    khz:  [val * 1000, "Гц"],
+    min:  [val * 60, "с"],
+    hour: [val * 3600, "с"]
+  };
+
+  const [res, label] = rules[unit];
+  const cleanRes = Number(res.toPrecision(6));
+  out.textContent = `В СИ: ${cleanRes} ${label}`;
+}
+ 
 </script>
 </body>
 </html>
